@@ -89,6 +89,7 @@ function loadFile(filename, faq) {
 
 let faq = [];
 
+// test local file
 //loadFile("/Users/alice/projects/near-docs-faq/docs/docs/1.concepts/storage/storage-staking.md", faq);
 //console.log(faq); return;
 
@@ -108,6 +109,7 @@ fs.writeFile("faq.html", readFaqTemplate().replace("</body>", `${html}</body>`),
 });
 
 
+// test local file
 //loadFile(__dirname + DOCS_DIR + "/2.develop/deploy.md", faq);
 //let t = readFaqTemplate();
 //console.log(faq);
@@ -273,69 +275,5 @@ function findByExtension(dir, ext) {
     }
 
     return files;
-    /*
-        const matchedFiles = [];
-
-        const files = await fs.promises.readdir(__dirname + dir);
-
-        for (const file of files) {
-            const fileExt = path.extname(file);
-
-            if (fileExt === `.${ext}`) {
-                matchedFiles.push(file);
-            }
-        }
-
-        return matchedFiles;
-
-     */
 };
 
-
-/*
-(async () => {
-    let a = await getAnswer(66);
-    console.log(a);
-    return;
-})();
-
-return;*/
-
-const generateApiHeaders = () => {
-    const headers = new fetch.Headers();
-    headers.set('Api-Key', 'e29de59f7a7f5c57c08a6d0d8b6127f81f9013c1780ec90b4e0c5b8e860b535c');
-    headers.set('Api-Username', 'kirikiri');
-    return headers;
-}
-
-
-async function getTopic(topic) {
-    let answer = await getAnswer(topic.topic_id);
-    if (answer) {
-        let block = `<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="classyschema-faqpage-qanda">
-                            <h2 itemprop="name" class="classyschema-faqpage-question">${topic.topic_title}</h2>
-                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="classyschema-faqpage-answer">
-                                <div itemprop="text">${answer}</p>
-                                </div>
-                            </div>
-                        </div>`;
-        return block;
-    } else {
-        return null;
-    }
-}
-
-/*
-function getAnswer(topic_id) {
-    return fetch(`https://awayfromukraine.com/t/${topic_id}.json`, fetchInit)
-        .then(response => response.text())
-        .then(async data => {
-            try {
-                let json = JSON.parse(data);
-                return json.post_stream.posts[0].cooked.replace("\u003cp\u003e", "")
-            } catch (error) {
-                console.log(`Error happened with ${topic_id} ` + error.message + data)
-                return null;
-            }
-        });
-}*/
